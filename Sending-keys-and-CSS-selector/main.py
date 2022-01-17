@@ -1,11 +1,17 @@
 # using Chrome Driver Manager
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+# from webdriver_manager.chrome import ChromeDriverManager
+#
+# from selenium.webdriver.common.keys import Keys  # for enter keys from keyboard
+#
+# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
-from selenium.webdriver.common.keys import Keys  # for enter keys from keyboard
+from selenium.webdriver.chrome.service import Service
+ser = Service("/Users/forhad/ChromeDriver/chromedriver")
+op = webdriver.ChromeOptions()
+driver = webdriver.Chrome(service=ser, options=op)
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 driver.get("https://www.seleniumeasy.com/test/basic-first-form-demo.html")
 
 driver.implicitly_wait(5)
