@@ -1,7 +1,7 @@
-# from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.service import Service
 # ser = Service("/Users/forhad/ChromeDriver/chromedriver")
 # op = webdriver.ChromeOptions()
-# s = webdriver.Chrome(service=ser, options=op)
+# driver = webdriver.Chrome(service=ser, options=op)
 
 
 import booking.constants as const
@@ -10,9 +10,9 @@ import os
 
 
 class Booking(webdriver.Chrome):
-    def __init__(self, driver_path=r"/Users/forhad/ChromeDriver"):
-        self.driver_path = driver_path
-        os.environ['PATH'] += self.driver_path
+    def __init__(self, driver_path=r"/Users/forhad/ChromeDriver/chromedriver"):
+        Service.driver_path = driver_path
+        os.environ['PATH'] += Service.driver_path
         super(Booking, self).__init__()
 
     def land_first_page(self):
