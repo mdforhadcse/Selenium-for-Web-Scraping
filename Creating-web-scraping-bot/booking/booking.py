@@ -2,6 +2,8 @@ import booking.constants as const
 import os
 from selenium import webdriver
 from booking.booking_filtration import BookingFiltration
+from booking.booking_report import BookingReport
+import pandas as pd
 
 
 class Booking(webdriver.Chrome):
@@ -9,7 +11,9 @@ class Booking(webdriver.Chrome):
         self.driver_path = driver_path
         self.teardown = teardown
         os.environ['PATH'] += self.driver_path
-        super(Booking, self).__init__()
+        options = webdriver.ChromeOptions()
+        options.add_experimental_option('excludeSwitches', ['enable-logging'])
+        super(Booking, self).__init__(options=options)
         self.implicitly_wait(15)
         self.maximize_window()
 
@@ -72,3 +76,12 @@ class Booking(webdriver.Chrome):
         filtration = BookingFiltration(driver=self)
         filtration.sort_price_lowest_first()
         filtration.apply_star_rating(3, 4, 5)
+
+    def report_results(self):
+        hotel_boxes = self.find_element_by_class_name('_814193827')
+
+        report = BookingReport(hotel_boxes)
+        info_list = report.pull_deal_boxes_attributes()
+        df = pd.DataFrame(info_list)
+        print(df)
+        print(info_list)

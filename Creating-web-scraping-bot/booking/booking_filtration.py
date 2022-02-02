@@ -9,7 +9,6 @@ class BookingFiltration:
     def apply_star_rating(self, *star_values):
         star_filtration_box = self.driver.find_element_by_css_selector('div[data-filters-group="class"]')
         star_child_elements = star_filtration_box.find_elements_by_css_selector('*')
-        print(len(star_child_elements))
 
         for star_value in star_values:
             for star_element in star_child_elements:
